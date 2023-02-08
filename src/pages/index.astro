@@ -6,7 +6,7 @@ import CardList from "../components/CardList.astro";
 <Layout title='Welcome to Blockenberg Astro sample client.'>
 	<main>
 		<section>
-			<div class='container max-w-6xl p-6 mx-auto space-y-6 sm:space-y-12'>
+			<div class='container max-w-6xl sm:p-6 mx-auto space-y-6 sm:space-y-12'>
 				<div
 					class='block max-w-sm gap-3 mx-auto sm:max-w-full lg:grid lg:grid-cols-12 dark:dark:bg-zinc-900'
 				>
@@ -31,11 +31,7 @@ import CardList from "../components/CardList.astro";
 						<p class='mt-4'>Nelson Mandela</p>
 					</div>
 				</div>
-				<div
-					class='grid justify-center grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3'
-				>
-					<CardList token='mmkooe7pj6p6avi66mwq5n63muuwjyfm' />
-				</div>
+				<CardList token='mmkooe7pj6p6avi66mwq5n63muuwjyfm' />
 			</div>
 		</section>
 	</main>

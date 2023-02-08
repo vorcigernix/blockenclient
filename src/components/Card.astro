@@ -9,23 +9,18 @@ export interface Props {
 }
 
 const { doc, i } = Astro.props;
-const id = `cardid${i}`;
+const id: string = `cardid${i}`;
 const updated = new Date(doc.updated).toLocaleDateString("en-GB", {
 	weekday: "long",
 	year: "numeric",
 	month: "long",
 	day: "numeric",
 });
-
-//const response = await fetch(ipfscontent);
-//const data = await response.json();
-//console.log(data);
 ---
 
-<div class='flex flex-col w-full justify-start items-center'>
+<b-article class='flex flex-col w-full justify-start items-center'>
 	<button
-		id={id}
-		class='group hover:no-underline focus:no-underline dark:dark:bg-zinc-900 max-w-sm'
+		class='group hover:no-underline focus:no-underline dark:dark:bg-zinc-900 w-full sm:max-w-sm'
 	>
 		<img
 			role='presentation'
@@ -40,8 +35,34 @@ const updated = new Date(doc.updated).toLocaleDateString("en-GB", {
 			</h3>
 			<div class='h-60 overflow-hidden'>
 				<span class='text-xs dark:dark:text-gray-400'>{updated}</span>
-				<p set:html={doc.post.content} />
+				<article set:html={doc.post.content} />
 			</div>
 		</div>
 	</button>
-</div>
+</b-article>
+
+<script>
+	class BlockArticle extends HTMLElement {
+		constructor() {
+			super();
+
+			const expandButton = this.querySelector("button");
+			const article = this.querySelector("article");
+			const cards = document.querySelectorAll("b-article");
+			//console.log(cards);
+
+			expandButton.addEventListener("click", () => {
+				cards.forEach((c) => {
+					c.classList.toggle("hidden");
+				});
+				this.classList.toggle("lg:col-span-3");
+				this.classList.toggle("sm:col-span-3");
+				this.classList.toggle("hidden");
+				expandButton.classList.toggle("sm:max-w-sm");
+				//expandButton.classList.toggle("w-full");
+				article.classList.toggle("overflow-y-scroll");
+			});
+		}
+	}
+	customElements.define("b-article", BlockArticle);
+</script>
