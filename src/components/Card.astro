@@ -38,8 +38,10 @@ const updated = new Date(doc.updated).toLocaleDateString("en-GB", {
 			>
 				{doc.post.header}
 			</h3>
-			<span class='text-xs dark:dark:text-gray-400'>{updated}</span>
-			<p class='h-60 overflow-hidden'>{doc.post.content}</p>
+			<div class='h-60 overflow-hidden'>
+				<span class='text-xs dark:dark:text-gray-400'>{updated}</span>
+				<p set:html={doc.post.content} />
+			</div>
 		</div>
 	</button>
 </div>
