@@ -1,0 +1,45 @@
+---
+export interface Props {
+	doc: {
+		post: { image: string; header: string; content: string; private: boolean };
+		image: string;
+		updated: number;
+	};
+	i: number;
+}
+
+const { doc, i } = Astro.props;
+const id = `cardid${i}`;
+const updated = new Date(doc.updated).toLocaleDateString("en-GB", {
+	weekday: "long",
+	year: "numeric",
+	month: "long",
+	day: "numeric",
+});
+
+//const response = await fetch(ipfscontent);
+//const data = await response.json();
+//console.log(data);
+---
+
+<div class='flex flex-col w-full justify-start items-center'>
+	<button
+		id={id}
+		class='group hover:no-underline focus:no-underline dark:dark:bg-zinc-900 max-w-sm'
+	>
+		<img
+			role='presentation'
+			class='object-cover w-full dark:dark:bg-gray-500 h-44'
+			src={doc.image}
+		/>
+		<div class='p-6 space-y-2'>
+			<h3
+				class='text-2xl font-bold group-hover:underline group-focus:underline text-ellipsis overflow-hidden truncate'
+			>
+				{doc.post.header}
+			</h3>
+			<span class='text-xs dark:dark:text-gray-400'>{updated}</span>
+			<p class='h-60 overflow-hidden'>{doc.post.content}</p>
+		</div>
+	</button>
+</div>

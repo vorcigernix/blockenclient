@@ -1,0 +1,14 @@
+---
+import { lookup } from "../lib/webnative";
+import Card from "./Card.astro";
+
+export interface Props {
+	token: string;
+}
+
+const { token } = Astro.props;
+const documents = await lookup(token);
+//console.log(documents);
+---
+
+{documents.map((doc, i) => <Card doc={doc} i={i} />)}
