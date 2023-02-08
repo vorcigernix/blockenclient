@@ -4,11 +4,11 @@ import { defineConfig } from 'astro/config';
 import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
-import deno from "@astrojs/deno";
+import netlify from "@astrojs/netlify/functions";
 
 // https://astro.build/config
 export default defineConfig({
   integrations: [tailwind()],
   output: "server",
-  adapter: deno()
+  adapter: netlify()
 });
