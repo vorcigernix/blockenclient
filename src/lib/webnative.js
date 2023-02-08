@@ -46,6 +46,14 @@ export async function lookup(token) {
     ),
   );
 
+  const piclinks = Object.values(
+    await publicTree.ls(
+      wn.path.unwrap(wn.path.directory("gallery")),
+    ),
+  );
+
+  //console.log(piclinks);
+
   // Return docs
   return await Promise.all(
     doclinks.map(async (doc) => {
@@ -55,8 +63,9 @@ export async function lookup(token) {
       const updated = file.header.metadata.unixMeta.mtime;
       const filecontentjson = JSON.parse(filecontent);
       const imagejson = JSON.parse(filecontentjson.image);
-      //console.log(imagejson);
-      const image = `https://ipfs.runfission.com/ipfs/${String(imagejson.cid)}/userland`;
+      const imagecid = piclinks.find((pic) => pic.name === imagejson.name);
+      //console.log(String(imagecid.cid).replace(/[CID\(\)]/g,""));
+      const image = `https://ipfs.runfission.com/ipfs/${String(imagecid.cid).replace(/[CID\(\)]/g,"")}/userland`;
       return { post: filecontentjson, image: image, updated: updated };;
     }),
   );
