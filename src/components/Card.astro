@@ -34,8 +34,11 @@ const updated = new Date(doc.updated).toLocaleDateString("en-GB", {
 				{doc.post.header}
 			</h3>
 			<article class='h-60 overflow-hidden'>
-				<span class='text-xs dark:dark:text-gray-400'>{updated}</span>
-				<div set:html={doc.post.content} />
+				<span class='text-xs dark:text-gray-400'>{updated}</span>
+				<div
+					set:html={doc.post.content}
+					class='first-letter:text-7xl first-letter:font-bold dark:first-letter:text-white first-letter:mr-3 first-letter:float-left md:text-left [&_p]:mt-4 md:[&_p]:mt-8 [&_blockquote]:pl-2 [&_blockquote]:text-gray-700 dark:[&_blockquote]:text-gray-100 [&_blockquote]:uppercase [&_blockquote]:tracking-widest [&_blockquote]:text-center'
+				/>
 			</article>
 		</div>
 	</button>
