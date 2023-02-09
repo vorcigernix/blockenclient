@@ -62,7 +62,8 @@ export async function lookup(token) {
       const filecontent = new TextDecoder().decode(file.content);
       const updated = file.header.metadata.unixMeta.mtime;
       const filecontentjson = JSON.parse(filecontent);
-      const imagejson = JSON.parse(filecontentjson.image);
+      //console.log(filecontentjson)
+      const imagejson = JSON.parse(decodeURI(filecontentjson.image));
       const imagecid = piclinks.find((pic) => pic.name === imagejson.name);
       //console.log(String(imagecid.cid).replace(/[CID\(\)]/g,""));
       const image = `https://ipfs.runfission.com/ipfs/${String(imagecid.cid).replace(/[CID\(\)]/g,"")}/userland`;
