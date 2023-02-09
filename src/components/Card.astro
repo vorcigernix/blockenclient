@@ -33,10 +33,10 @@ const updated = new Date(doc.updated).toLocaleDateString("en-GB", {
 			>
 				{doc.post.header}
 			</h3>
-			<div class='h-60 overflow-hidden'>
+			<article class='h-60 overflow-hidden'>
 				<span class='text-xs dark:dark:text-gray-400'>{updated}</span>
-				<article set:html={doc.post.content} />
-			</div>
+				<div set:html={doc.post.content} />
+			</article>
 		</div>
 	</button>
 </b-article>
@@ -59,7 +59,8 @@ const updated = new Date(doc.updated).toLocaleDateString("en-GB", {
 				this.classList.toggle("sm:col-span-3");
 				this.classList.toggle("hidden");
 				expandButton.classList.toggle("sm:max-w-sm");
-				article.classList.toggle("overflow-y-scroll");
+				article.classList.toggle("overflow-hidden");
+				article.classList.toggle("h-full");
 			});
 		}
 	}
