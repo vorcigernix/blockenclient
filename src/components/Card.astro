@@ -9,7 +9,6 @@ export interface Props {
 }
 
 const { doc, i } = Astro.props;
-const id: string = `cardid${i}`;
 const updated = new Date(doc.updated).toLocaleDateString("en-GB", {
 	weekday: "long",
 	year: "numeric",

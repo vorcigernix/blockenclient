@@ -7,8 +7,8 @@ export interface Props {
 }
 
 const { token } = Astro.props;
-const documents = await lookup(token);
-//console.log(documents);
+let documents = await lookup(token);
+documents.sort((a, b) => b.updated - a.updated);
 ---
 
 <div
