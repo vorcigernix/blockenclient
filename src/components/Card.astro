@@ -18,9 +18,9 @@ const updated = new Date(doc.updated).toLocaleDateString("en-GB", {
 });
 ---
 
-<b-article class='flex flex-col w-full justify-start items-center'>
-	<button
-		class='group hover:no-underline focus:no-underline dark:dark:bg-zinc-900 w-full sm:max-w-sm'
+<b-article class='flex flex-col w-full justify-start items-center sm:max-w-sm'>
+	<div
+		class='group hover:no-underline focus:no-underline dark:dark:bg-zinc-900 w-full'
 	>
 		<img
 			role='presentation'
@@ -28,11 +28,27 @@ const updated = new Date(doc.updated).toLocaleDateString("en-GB", {
 			src={doc.image}
 		/>
 		<div class='p-6 space-y-2'>
-			<h3
-				class='text-2xl font-bold group-hover:underline group-focus:underline text-ellipsis overflow-hidden truncate'
-			>
-				{doc.post.header}
-			</h3>
+			<button class='flex flex-row w-full items-center justify-center'>
+				<svg
+					xmlns='http://www.w3.org/2000/svg'
+					fill='none'
+					viewBox='0 0 24 24'
+					stroke-width='1.5'
+					stroke='currentColor'
+					class='w-4 h-4 mr-2 hidden'
+				>
+					<path
+						stroke-linecap='round'
+						stroke-linejoin='round'
+						d='M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3'></path>
+				</svg>
+
+				<span
+					class='text-2xl font-bold group-hover:underline group-focus:underline text-ellipsis overflow-hidden truncate'
+				>
+					{doc.post.header}
+				</span>
+			</button>
 			<article class='h-60 overflow-hidden'>
 				<span class='text-xs dark:text-gray-400'>{updated}</span>
 				<div
@@ -41,7 +57,7 @@ const updated = new Date(doc.updated).toLocaleDateString("en-GB", {
 				/>
 			</article>
 		</div>
-	</button>
+	</div>
 </b-article>
 
 <script>
@@ -50,6 +66,7 @@ const updated = new Date(doc.updated).toLocaleDateString("en-GB", {
 			super();
 
 			const expandButton = this.querySelector("button");
+			const expandButtonIcon = expandButton.querySelector("svg");
 			const article = this.querySelector("article");
 			const cards = document.querySelectorAll("b-article");
 			//console.log(cards);
@@ -61,7 +78,8 @@ const updated = new Date(doc.updated).toLocaleDateString("en-GB", {
 				this.classList.toggle("lg:col-span-3");
 				this.classList.toggle("sm:col-span-3");
 				this.classList.toggle("hidden");
-				expandButton.classList.toggle("sm:max-w-sm");
+				expandButtonIcon.classList.toggle("hidden");
+				this.classList.toggle("sm:max-w-sm");
 				article.classList.toggle("overflow-hidden");
 				article.classList.toggle("h-full");
 			});
