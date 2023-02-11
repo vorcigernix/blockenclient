@@ -1,0 +1,75 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getAllPosts } from "../../lib/shared";
+const { post } = Astro.params;
+const documents = await getAllPosts();
+const doc = documents.find((d) => d.post.header === post);
+const updated =
+	new Date(doc.updated).toLocaleDateString("en-GB", {
+		weekday: "long",
+		year: "numeric",
+		month: "long",
+		day: "numeric",
+	}) || "";
+//console.log(doc);
+---
+
+<Layout title={`Blockenberg: ${post}`}>
+	<main>
+		<nav class='container flex justify-between max-w-6xl p-6'>
+			<a href='/'>
+				<svg
+					xmlns='http://www.w3.org/2000/svg'
+					fill='none'
+					viewBox='0 0 24 24'
+					stroke-width='1.5'
+					stroke='currentColor'
+					class='w-6 h-6'
+				>
+					<path
+						stroke-linecap='round'
+						stroke-linejoin='round'
+						d='M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75'></path>
+				</svg>
+			</a>
+			<span></span>
+		</nav>
+		<section>
+			<div class='container max-w-6xl sm:p-6 mx-auto space-y-6 sm:space-y-12'>
+				<div
+					class='block gap-3 mx-auto max-w-full lg:grid lg:grid-cols-12 dark:dark:bg-zinc-900'
+				>
+					<img
+						src={doc.image}
+						alt=''
+						class='relative left-0 object-cover w-full h-64 grayscale hover:grayscale-0 transition duration-700 sm:h-96 lg:col-span-7 dark:dark:bg-gray-500'
+					/>
+					<div class='p-6 lg:col-span-5 text-left'>
+						<h3
+							class='text-2xl my-4 font-semibold sm:text-4xl group-hover:underline group-focus:underline'
+						>
+							{doc.post.header}
+						</h3>
+						<span class='text-xs dark:dark:text-gray-400'>
+							{updated}
+						</span>
+						<p class='mt-2'>
+							Blog about building decentralized CMS <a
+								class='font-bold underline'
+								href='https://blockenberg.fission.app/'>Blockenberg</a
+							>. Written in Blockenberg.
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section
+			class='container max-w-6xl sm:p-6 mx-auto space-y-6 sm:space-y-12 md:text-left'
+		>
+			<div
+				set:html={doc.post.content}
+				class='[&_p]:mt-4 [&_img]:my-8 md:[&_p]:mt-8 [&_blockquote]:pl-2 [&_blockquote]:text-gray-700 dark:[&_blockquote]:text-gray-100 [&_blockquote]:uppercase [&_blockquote]:tracking-widest [&_blockquote]:text-center'
+			/>
+		</section>
+	</main>
+</Layout>

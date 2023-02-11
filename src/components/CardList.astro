@@ -1,14 +1,8 @@
 ---
-import { lookup } from "../lib/webnative";
+import { getAllPosts } from "../lib/shared";
 import Card from "./Card.astro";
 
-export interface Props {
-	token: string;
-}
-
-const { token } = Astro.props;
-let documents = await lookup(token);
-documents.sort((a, b) => b.updated - a.updated);
+const documents = await getAllPosts();
 ---
 
 <div
